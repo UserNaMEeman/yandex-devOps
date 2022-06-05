@@ -87,6 +87,7 @@ func main() {
 	go func() {
 		client := http.Client{}
 		for {
+			time.Sleep(reportInterval)
 			for key, value := range sendMetrics {
 				aVal := fmt.Sprint(value)
 				url := "http://127.0.0.1:8080/update/gauge/" + key + "/" + aVal
@@ -98,7 +99,6 @@ func main() {
 			aRand := fmt.Sprint(RandomValue)
 			url = "http://127.0.0.1:8080/update/gauge/RandomValue/" + aRand
 			POST(url, client)
-			time.Sleep(reportInterval)
 		}
 	}()
 
